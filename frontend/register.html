@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account – TalentBridge</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { background: var(--bg-surface); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem 1.5rem; }
+    .auth-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 3rem; width: 100%; max-width: 500px; box-shadow: var(--shadow-lg); }
+    .auth-logo { margin-bottom: 2rem; text-align: center; }
+    .auth-title { font-size: 1.75rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem; text-align: center; letter-spacing: -0.02em; }
+    .auth-subtitle { color: var(--text-muted); text-align: center; margin-bottom: 2rem; }
+    .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .role-option {
+      border: 2px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.2s;
+    }
+    .role-option:hover { border-color: var(--blue-400); background: var(--bg-surface); }
+    .role-option.active { border-color: var(--blue-600); background: var(--blue-50); }
+    .role-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .role-label { font-weight: 700; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="auth-card">
+    <div class="auth-logo">
+      <a href="index.html" class="nav-logo" style="display:inline-flex; border:none; background:none; box-shadow:none;">
+        <div class="logo-icon">TB</div>
+        TalentBridge
+      </a>
+    </div>
+    <h1 class="auth-title">Join TalentBridge</h1>
+    <p class="auth-subtitle">Select your role to get started</p>
+
+    <div class="role-selector">
+      <div class="role-option active" data-role="jobseeker">
+        <div class="role-icon">👤</div>
+        <div class="role-label">Job Seeker</div>
+      </div>
+      <div class="role-option" data-role="employer">
+        <div class="role-icon">🏢</div>
+        <div class="role-label">Employer</div>
+      </div>
+    </div>
+    <input type="hidden" id="role" value="jobseeker" />
+
+    <form id="register-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input id="name" type="text" class="form-control" placeholder="Alex Rivers" required />
+      </div>
+      <div class="form-group" id="company-field" style="display:none">
+        <label for="company-name">Company Name</label>
+        <input id="company-name" type="text" class="form-control" placeholder="TechFlow Inc." />
+      </div>
+      <div class="form-group">
+        <label for="email">Work Email</label>
+        <input id="email" type="email" class="form-control" placeholder="alex@example.com" required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm</label>
+          <input id="confirm-password" type="password" class="form-control" required />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-full btn-lg" style="margin-top: 1rem;">Create Account</button>
+    </form>
+
+    <div style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+      Already have an account? <a href="login.html" style="color: var(--blue-600); font-weight: 600;">Sign in</a>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

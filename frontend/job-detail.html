@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Detail – TalentBridge</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .job-header { display: flex; align-items: center; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+    .job-content-card { background: #fff; padding: 2.5rem; border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .sidebar-card { background: var(--bg-surface); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border); position: sticky; top: calc(var(--nav-h) + 2rem); }
+    .detail-row { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.95rem; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key { font-weight: 600; color: var(--text-muted); }
+    .detail-val { font-weight: 700; color: var(--text-primary); text-align: right; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container" style="display:flex; align-items:center; width:100%; gap:2rem;">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">TB</div>TalentBridge</a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="jobs.html">Browse Jobs</a>
+    </div>
+    <div class="nav-actions" id="nav-actions"></div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="container">
+    <div id="job-detail-content">
+      <div class="loading-box"><div class="spinner"></div><p>Gathering job details...</p></div>
+    </div>
+  </div>
+</div>
+
+<div id="apply-modal" class="modal-overlay">
+  <div class="modal">
+    <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800;">Apply for this Position</h2>
+      <button id="apply-modal-close" class="btn btn-ghost" style="padding: 0.5rem;">✕</button>
+    </div>
+    <form id="apply-form">
+      <div class="form-group">
+        <label for="cover-letter">Cover Letter (Optional)</label>
+        <textarea id="cover-letter" class="form-control" rows="6" placeholder="Why are you a great fit for this role?"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="resume-url">Resume Link (Google Drive / Dropbox / Public URL)</label>
+        <input id="resume-url" type="url" class="form-control" placeholder="https://..." />
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg w-full" id="apply-submit-btn">Submit Application</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="js/api.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initNavbar();
+  const jobId = new URLSearchParams(window.location.search).get('id');
+  if (!jobId) { window.location.href = 'jobs.html'; return; }
+  loadJobDetail(jobId);
+  setupApplyModal(jobId);
+});
+
+async function loadJobDetail(jobId) {
+  const container = document.getElementById('job-detail-content');
+  try {
+    const { job } = await jobsAPI.getById(jobId);
+    document.title = `${job.title} | TalentBridge`;
+    const user = getUser();
+    const canApply = user?.role === 'jobseeker';
+
+    container.innerHTML = `
+      <div class="job-header">
+        <div class="company-logo" style="width: 80px; height: 80px; font-size: 2rem;">${companyInitial(job.company)}</div>
+        <div style="flex: 1;">
+          <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.02em;">${job.title}</h1>
+          <div style="display:flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+            <span style="font-weight: 700; color: var(--blue-600); font-size: 1.1rem;">${job.company}</span>
+            <span style="color: var(--text-muted);">📍 ${job.location}</span>
+            <span class="badge ${job.status === 'open' ? 'badge-success' : 'badge-danger'}">${job.status}</span>
+          </div>
+        </div>
+        ${canApply && job.status === 'open' ? `<button id="apply-btn" class="btn btn-primary btn-lg">Apply Now</button>` : ''}
+      </div>
+
+      <div class="layout-sidebar">
+        <div>
+          <div class="job-content-card">
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">About the Role</h2>
+            <div style="font-size: 1.05rem; white-space: pre-wrap; margin-bottom: 3rem; color: var(--text-secondary);">${job.description}</div>
+            
+            ${job.requirements?.length ? `
+              <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">Requirements</h2>
+              <ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 3rem; display: grid; gap: 0.75rem; color: var(--text-secondary);">
+                ${job.requirements.map(r => `<li>${r}</li>`).join('')}
+              </ul>
+            ` : ''}
+
+            ${job.skills?.length ? `
+              <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">Key Skills</h2>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                ${job.skills.map(s => `<span class="badge badge-primary" style="padding: 0.5rem 1rem;">${s}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-card">
+            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem;">Job Overview</h3>
+            <div class="detail-row">
+              <span class="detail-key">Job Type</span>
+              <span class="detail-val">${job.type}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-key">Experience</span>
+              <span class="detail-val">${job.experience || 'Entry Level'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-key">Salary</span>
+              <span class="detail-val">${formatSalary(job.salary)}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-key">Category</span>
+              <span class="detail-val">${job.category || 'Technology'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-key">Posted</span>
+              <span class="detail-val">${formatDate(job.createdAt)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('apply-btn')?.addEventListener('click', () => {
+      document.getElementById('apply-modal').classList.add('open');
+    });
+  } catch (err) {
+    showToast('Failed to load job details', 'error');
+    container.innerHTML = `<p style="text-align:center; padding: 4rem;">Job not found or failed to load.</p>`;
+  }
+}
+
+function setupApplyModal(jobId) {
+  const modal = document.getElementById('apply-modal');
+  document.getElementById('apply-modal-close').onclick = () => modal.classList.remove('open');
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+
+  document.getElementById('apply-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('apply-submit-btn');
+    btn.disabled = true;
+    try {
+      await applicationsAPI.apply(jobId, {
+        coverLetter: document.getElementById('cover-letter').value,
+        resumeUrl: document.getElementById('resume-url').value
+      });
+      showToast('Application sent successfully!', 'success');
+      modal.classList.remove('open');
+    } catch (err) {
+      showToast(err.message, 'error');
+      btn.disabled = false;
+    }
+  });
+}
+</script>
+</body>
+</html>

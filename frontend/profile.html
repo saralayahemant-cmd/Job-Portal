@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile – TalentBridge</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .profile-header { background: #fff; padding: 3rem; border-radius: var(--radius-xl); border: 1px solid var(--border); margin-bottom: 2rem; display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+    .profile-pic { width: 100px; height: 100px; border-radius: 50%; background: var(--blue-600); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 800; }
+    .tab-nav { display:flex; gap: 2rem; border-bottom: 2px solid var(--border); margin-bottom: 2rem; }
+    .tab-link { padding: 1rem 0; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+    .tab-link.active { color: var(--blue-600); border-bottom-color: var(--blue-600); }
+    .app-card { background: #fff; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); transition: all 0.2s; }
+    .app-card:hover { border-color: var(--blue-400); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container" style="display:flex; align-items:center; width:100%; gap:2rem;">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">TB</div>TalentBridge</a>
+    <div class="nav-links" id="nav-links">
+      <a href="jobs.html">Browse Jobs</a>
+      <a href="profile.html" class="active">Profile</a>
+    </div>
+    <div class="nav-actions" id="nav-actions"></div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="container">
+    <div class="profile-header">
+      <div class="profile-pic" id="profile-avatar">?</div>
+      <div style="flex: 1;">
+        <h1 id="profile-name" style="font-size: 2rem; font-weight: 800; margin-bottom: 0.25rem;">Loading...</h1>
+        <p id="profile-email" style="color: var(--text-muted); font-weight: 600;"></p>
+        <div id="profile-meta" style="display:flex; gap: 1.5rem; margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+          <span id="profile-location">📍 Location not set</span>
+          <span id="profile-role-label">💼 Job Seeker</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-nav">
+      <div class="tab-link active" data-tab="applications-tab">Your Applications</div>
+      <div class="tab-link" data-tab="edit-profile-tab">Edit Profile</div>
+    </div>
+
+    <div id="applications-tab" class="tab-panel">
+      <div id="my-applications" style="display:grid; gap: 1rem;">
+        <div class="loading-box"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <div id="edit-profile-tab" class="tab-panel" style="display:none;">
+      <div class="card" style="max-width: 800px;">
+        <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem;">Profile Settings</h2>
+        <form id="edit-profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input id="edit-name" type="text" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input id="edit-location" type="text" class="form-control" placeholder="e.g. New York, NY" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Professional Bio</label>
+            <textarea id="edit-bio" class="form-control" rows="5" placeholder="Share a brief overview of your professional background"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Skills (comma separated)</label>
+            <input id="edit-skills" type="text" class="form-control" placeholder="React, Node.js, Design Systems" />
+          </div>
+          <div class="form-group">
+            <label>Resume Link</label>
+            <input id="edit-resume" type="url" class="form-control" placeholder="https://..." />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 1rem;">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="js/api.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

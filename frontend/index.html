@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TalentBridge – Professional Job Portal</title>
+  <meta name="description" content="TalentBridge connects top talent with leading companies. Browse thousands of jobs or post opportunities for your team." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container" style="display:flex; align-items:center; width:100%; gap:2rem;">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">TB</div>
+      TalentBridge
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="jobs.html">Browse Jobs</a>
+    </div>
+    <div class="nav-actions" id="nav-actions"></div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Find the Perfect <span style="color:var(--blue-600)">Opportunity</span> for Your Career</h1>
+      <p>Connect with top companies and discover curated roles that match your skills, passion, and ambitions. Your next chapter starts here.</p>
+      <div class="hero-actions">
+        <a href="jobs.html" class="btn btn-primary btn-lg">Browse Open Roles</a>
+        <a href="register.html" class="btn btn-outline btn-lg">Post a Job</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section style="padding: 6rem 0; background: #fff;">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Browse by Category</h2>
+      <p class="section-subtitle">Explore opportunities in the industry you're passionate about</p>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+      <a href="jobs.html?category=Technology" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💻</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Technology</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">3,241 jobs</p>
+      </a>
+      <a href="jobs.html?category=Finance" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Finance</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">1,820 jobs</p>
+      </a>
+      <a href="jobs.html?category=Design" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎨</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Design</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">987 jobs</p>
+      </a>
+      <a href="jobs.html?category=Marketing" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📣</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Marketing</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">1,142 jobs</p>
+      </a>
+      <a href="jobs.html?category=Healthcare" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏥</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Healthcare</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">2,310 jobs</p>
+      </a>
+      <a href="jobs.html?category=Engineering" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚙️</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Engineering</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">2,019 jobs</p>
+      </a>
+      <a href="jobs.html?category=Education" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎓</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Education</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">671 jobs</p>
+      </a>
+      <a href="jobs.html?category=HR" class="card" style="text-align:center; padding: 2rem 1rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🤝</div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">HR & People</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">543 jobs</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding: 6rem 0; background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; text-align: center;">
+      <div>
+        <div style="font-size: 3rem; font-weight: 800; color: var(--blue-600); line-height: 1;">10k+</div>
+        <p style="font-weight: 600; margin-top: 0.5rem;">Jobs Available</p>
+      </div>
+      <div>
+        <div style="font-size: 3rem; font-weight: 800; color: var(--blue-600); line-height: 1;">5k+</div>
+        <p style="font-weight: 600; margin-top: 0.5rem;">Companies Hiring</p>
+      </div>
+      <div>
+        <div style="font-size: 3rem; font-weight: 800; color: var(--blue-600); line-height: 1;">20k+</div>
+        <p style="font-weight: 600; margin-top: 0.5rem;">Job Seekers</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding: 8rem 0; text-align: center;">
+  <div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 class="section-title">Ready to Take the Next Step?</h2>
+      <p class="section-subtitle" style="margin-bottom: 3rem;">Join thousands of others who have found their dream job through TalentBridge.</p>
+      <div style="display:flex; gap: 1rem; justify-content: center;">
+        <a href="register.html" class="btn btn-primary btn-lg">Get Started Now</a>
+        <a href="login.html" class="btn btn-outline btn-lg">Sign In</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div style="display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+      <div class="nav-logo">
+        <div class="logo-icon">TB</div>
+        TalentBridge
+      </div>
+      <div style="display:flex; gap: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+        <a href="jobs.html">Browse Jobs</a>
+        <a href="register.html">For Employers</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div style="color: var(--text-muted); font-size: 0.85rem;">
+        © 2026 TalentBridge. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="js/api.js"></script>
+<script>
+  // Initial layout for categories (since it's a static list in the JS template above, but we'll use a script to render properly for the user in real environments)
+  // For the sake of this file, the template literal logic above is just a placeholder of what I'd put there.
+  // Let me fix the HTML to be fully static without template literals if I'm writing directly to file.
+</script>
+</body>
+</html>

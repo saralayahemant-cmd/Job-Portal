@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employer Dashboard – TalentBridge</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .tab-nav { display:flex; gap: 1.5rem; border-bottom: 2px solid var(--border); margin-bottom: 2rem; }
+    .tab-link { padding: 1rem 0; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .tab-link.active { color: var(--blue-600); border-bottom-color: var(--blue-600); }
+    .stat-box { background: #fff; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    .stat-val { font-size: 2.5rem; font-weight: 800; color: var(--text-primary); }
+    .stat-label { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container" style="display:flex; align-items:center; width:100%; gap:2rem;">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">TB</div>TalentBridge</a>
+    <div class="nav-links" id="nav-links">
+      <a href="jobs.html">Browse Jobs</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+    </div>
+    <div class="nav-actions" id="nav-actions"></div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="container">
+    <div style="margin-bottom: 3rem;">
+      <h1 class="section-title" style="text-align: left; margin-bottom: 0.5rem;">Employer Dashboard</h1>
+      <p style="color: var(--text-muted);">Manage your job listings and track applications</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+      <div class="stat-box">
+        <div class="stat-val" id="stat-jobs">0</div>
+        <div class="stat-label">Total Jobs</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="stat-open">0</div>
+        <div class="stat-label">Open Positions</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="stat-apps">0</div>
+        <div class="stat-label">Total Applicants</div>
+      </div>
+    </div>
+
+    <div class="tab-nav">
+      <div class="tab-link active" data-tab="my-jobs-tab">Your Listings</div>
+      <div class="tab-link" data-tab="post-job-tab">Post a Job</div>
+    </div>
+
+    <div id="my-jobs-tab" class="tab-panel">
+      <div id="my-jobs-list" style="display:grid; gap: 1.5rem;">
+        <div class="loading-box"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <div id="post-job-tab" class="tab-panel" style="display:none;">
+      <div class="card" style="max-width: 800px;">
+        <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem;" id="form-title">Post a New Role</h2>
+        <form id="post-job-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Job Title</label>
+              <input id="job-title" type="text" class="form-control" placeholder="e.g. Senior Software Engineer" required />
+            </div>
+            <div class="form-group">
+              <label>Company Display Name</label>
+              <input id="job-company" type="text" class="form-control" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Location</label>
+              <input id="job-location" type="text" class="form-control" placeholder="Remote / City, State" required />
+            </div>
+            <div class="form-group">
+              <label>Job Type</label>
+              <select id="job-type" class="form-control">
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+                <option value="remote">Remote</option>
+                <option value="contract">Contract</option>
+                <option value="internship">Internship</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category</label>
+              <select id="job-category" class="form-control">
+                <option>Technology</option><option>Marketing</option><option>Finance</option>
+                <option>Healthcare</option><option>Education</option><option>Design</option>
+                <option>Sales</option><option>Engineering</option><option>HR</option><option>Operations</option><option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Experience Level</label>
+              <select id="job-experience" class="form-control">
+                <option>Entry Level</option>
+                <option>1-2 years</option>
+                <option>2-5 years</option>
+                <option>5+ years</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Min Salary (Annually)</label>
+              <input id="salary-min" type="number" class="form-control" placeholder="e.g. 50000" />
+            </div>
+            <div class="form-group">
+              <label>Max Salary (Annually)</label>
+              <input id="salary-max" type="number" class="form-control" placeholder="e.g. 80000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="job-description" class="form-control" rows="8" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Requirements (one per line)</label>
+            <textarea id="job-requirements" class="form-control" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="job-status" class="form-control">
+              <option value="open">Open</option>
+              <option value="closed">Closed</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 1rem;">Publish Listing</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="apps-modal" class="modal-overlay">
+  <div class="modal">
+    <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h2 id="apps-modal-title" style="font-size: 1.5rem; font-weight: 800;">Applications</h2>
+      <button id="apps-modal-close" class="btn btn-ghost" style="padding: 0.5rem;">✕</button>
+    </div>
+    <div id="apps-modal-body"></div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

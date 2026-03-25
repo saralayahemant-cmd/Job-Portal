@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Jobs – TalentBridge</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<nav class="navbar">
+  <div class="container" style="display:flex; align-items:center; width:100%; gap:2rem;">
+    <a href="index.html" class="nav-logo"><div class="logo-icon">TB</div>TalentBridge</a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="jobs.html" class="active">Browse Jobs</a>
+    </div>
+    <div class="nav-actions" id="nav-actions"></div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="container">
+    <div style="display:flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 class="section-title" style="text-align: left; margin-bottom: 0.5rem;">Discover Your Next Role</h1>
+        <p style="color: var(--text-muted);" id="jobs-count">Loading jobs...</p>
+      </div>
+    </div>
+
+    <!-- Search & Filter Bar -->
+    <div class="card" style="margin-bottom: 3rem; padding: 2rem;">
+      <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+          <input id="search-input" type="text" class="form-control" placeholder="Search by job title, company, or skills..." style="height: 3rem;" />
+        </div>
+        <button id="search-btn" class="btn btn-primary" style="padding: 0 2rem; height: 3rem;">Search Jobs</button>
+      </div>
+      
+      <div style="display:flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+        <select id="type-filter" class="form-control" style="width: auto; min-width: 150px;">
+          <option value="">All Types</option>
+          <option value="full-time">Full-time</option>
+          <option value="part-time">Part-time</option>
+          <option value="remote">Remote</option>
+          <option value="contract">Contract</option>
+          <option value="internship">Internship</option>
+        </select>
+        <select id="category-filter" class="form-control" style="width: auto; min-width: 150px;">
+          <option value="">All Categories</option>
+          <option>Technology</option><option>Marketing</option><option>Finance</option>
+          <option>Healthcare</option><option>Education</option><option>Design</option>
+          <option>Sales</option><option>Engineering</option><option>HR</option><option>Operations</option>
+        </select>
+        <select id="experience-filter" class="form-control" style="width: auto; min-width: 150px;">
+          <option value="">Any Experience</option>
+          <option>Entry Level</option>
+          <option>1-2 years</option>
+          <option>2-5 years</option>
+          <option>5+ years</option>
+        </select>
+        <button id="clear-filters" class="btn btn-ghost" style="margin-left: auto;">Clear Filters</button>
+      </div>
+    </div>
+
+    <!-- Jobs Grid -->
+    <div id="jobs-grid" class="jobs-grid">
+      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem;">
+        <div class="spinner" style="margin: 0 auto 1.5rem;"></div>
+        <p style="color: var(--text-muted);">Finding the best roles for you...</p>
+      </div>
+    </div>
+
+    <div id="pagination" class="pagination" style="margin-top: 4rem; display: flex; justify-content: center; gap: 0.5rem;"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div style="display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+      <div class="nav-logo">
+        <div class="logo-icon">TB</div>
+        TalentBridge
+      </div>
+      <div style="color: var(--text-muted); font-size: 0.85rem;">
+        © 2026 TalentBridge. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+<script src="js/api.js"></script>
+<script src="js/jobs.js"></script>
+</body>
+</html>
