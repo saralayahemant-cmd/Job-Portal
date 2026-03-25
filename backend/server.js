@@ -36,7 +36,12 @@ configurePassport(passport);
 app.use(passport.initialize());
 
 // Routes
+app.get('/', (req, res) => {
+  res.status(200).json({ success: true, message: 'Welcome to Job Portal API! 🚀 Use /api/health to check status.' });
+});
+
 app.use('/api/auth', authRoutes);
+
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
 app.get('/api/users/profile', protect, getProfile);
