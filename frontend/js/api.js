@@ -1,5 +1,5 @@
 // ===== API BASE URL =====
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.API_URL||'http://localhost:5000/api';
 
 // ===== TOKEN MANAGEMENT =====
 const getToken = () => localStorage.getItem('jp_token');
