@@ -1,5 +1,5 @@
 // ===== API BASE URL =====
-const API_URL = 'https://job-portal-1-wjay.onrender.com/'||'http://localhost:5000/api';
+const API_URL = 'https://job-portal-1-wjay.onrender.com'||'http://localhost:5000/api';
 
 // ===== TOKEN MANAGEMENT =====
 const getToken = () => localStorage.getItem('jp_token');
